@@ -23,24 +23,24 @@
 // -----------------------------------------------------------------------------------------
 // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
 // | CTRL |  LSHFT/A  |  LCTRL/S  |  LALT/D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  LGUI/Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
-                        bindings = <
+// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  RGUI//  | ESC  |
+//                    | LWR/TAB | SPC | TAB/LGUI |   | BSPC | DEL  | RAISE/RIGHT |
+                       bindings = <
    &trans   &mt ESC Q    &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &trans
    &trans   &mt LSHFT A  &mt LCTRL S  &mt LALT D &kp F &kp G   &kp H &kp J  &mt RALT K     &mt LCTRL L   &mt RSHIFT SEMI &trans
-   &trans   &mt LGUI  Z  &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &trans
-                  &lt LOWER LEFT &kp SPACE &kp TAB   &kp BSPC &kp DEL &lt RAISE RIGHT
+   &trans   &kp Z  &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &trans
+                  &lt LOWER TAB &kp SPACE &mt LGUI TAB   &kp BSPC &kp DEL &lt RAISE RIGHT
                         >;
                 };
                 lower_layer {
 // -----------------------------------------------------------------------------------------
 // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-// | SHFT |  ↩️  |  ✂️  |  📄  | 📋  | CTRL | LFT | DWN |  UP | RGT |     |      |
+// | SHFT |  ↩️  |  ✂️  |  📄  | 📋  | CTRL | LFT | DWN |  UP | RGT |  SHIFT  |      |
 // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   |   |     |     |     |     |     |      |
 //                    | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
    &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &kp LSHIFT &kp K_UNDO   &kp CUT      &kp COPY     &kp PASTE    &kp LCTRL      &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
+   &kp LSHIFT &kp K_UNDO   &kp CUT      &kp COPY     &kp PASTE    &kp LCTRL      &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp RSHIFT &trans
    &kp LSHFT  &bt BT_CLR   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &trans   &trans   &trans &trans    &trans &trans
                                     &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
                         >;
