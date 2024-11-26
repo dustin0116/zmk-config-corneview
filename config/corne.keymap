@@ -60,7 +60,7 @@
 //             | TO0 |     | SPC |   | RET |     | TO2 |
                         bindings = <
    &kp ESC  &kp ATSN  &kp LS(N3)  &kp DLLR  &kp PRCNT   &kp CARET  &kp LS(COMMA)  &kp LS(DOT)  &kp COLON  &kp BSPC 
-   &kp TAB  &kp EQUAL  &kp LA(RBKT)  &kp LA(LS(RBKT))  &kp SQT   &hm HOME BSLHxw  &hm PG_UP LBRC  &hm PG_DN RBRC  &hm END PIPE  &kp RET
+   &kp TAB  &kp EQUAL  &kp LA(RBKT)  &kp LA(LS(RBKT))  &kp SQT   &hm HOME BSLH  &hm PG_UP LBRC  &hm PG_DN RBRC  &hm END PIPE  &kp RET
    &kp TILDE  &kp LT  &kp LA(LBKT)  &kp LA(LS(LBKT))  &kp DQT   &kp LBKT &kp LPRN &kp RPRN &kp RBKT  &kp GT 
         &to 0  &trans  &kp LSHIFT   &kp RALT  &trans  &to 2
                         >;
