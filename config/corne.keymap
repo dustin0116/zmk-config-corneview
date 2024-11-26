@@ -9,10 +9,6 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/mouse.h>
 
-#define DEFAULT 0
-#define LEFT 1
-#define RIGHT 2
-
 #define CUT LS(DEL)
 #define COPY LC(INS)
 #define PASTE LS(INS)
