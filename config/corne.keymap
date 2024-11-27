@@ -25,7 +25,7 @@
 // Layer switching
 #define SECLTHMB  &ltsk  MEDIA    LSHIFT  // tap for sticky shift : hold for media layer
 #define PRMLTHMB  &ltr   NUM      0      //  zero here because key-repeat does not take arguments
-#define TERLTHMB  &mt    SPACE   LSHIFT  //   tap for tab : hold for shift
+#define TERLTHMB  &mt    LSHIFT   SPACE  //   tap for tab : hold for shift
 
 #define TERRTHMB  &lt    NAV      TAB
 #define PRMRTHMB  &mt    RC(BSPC) BSPC   // tap gives you backspace : long tap gives you delete word
