@@ -18,7 +18,7 @@
 // ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
 //                     │SEC THMB │PRM THMB │TER THMB │   │TER THMB │PRM THMB │SEC THMB │
 //                     │   MED   │  NUM    │ LSHIFT  │   │  NAV    │CTRL+DEL │  FUN    │
-//                     │ Sk SHFT │ REPEAT  │  Tab    │   │  SPACE  │  DEL    │ SK CTRL │
+//                     │ Sk SHFT │ REPEAT  │  SPACE  │   │  TAB    │  DEL    │ SK CTRL │
 //                     ╰─────────────────────────────╯   ╰─────────────────────────────╯
 //                          ╰caps_word on double tap, not sure if I like it yet
 
@@ -49,7 +49,7 @@
 #define _x_      &none
 
 // Home row mods
-#define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  k4
+#define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  kFF4
 #define HRMR(k1, k2, k3, k4) &hmr RGUI  k1 &hmr RALT  k2 &hmr RCTRL k3 &hmr RSHFT k4
 
 / {
