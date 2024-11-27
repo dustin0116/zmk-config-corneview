@@ -15,6 +15,12 @@
 };
 
 / {
+  chosen {
+    zmk,matrix-transform = &five_column_transform;
+  };
+};
+
+/ {
         behaviors {
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
@@ -36,6 +42,15 @@
         };
     };
 
+        combos {
+                compatible = "zmk,combos";
+                combo_layer {
+                        timeout-ms = <50>;
+                        key-positions = <30 34>;
+                        bindings = <&to 3>;
+                };
+        };
+
         keymap {
                 compatible = "zmk,keymap";
 
@@ -45,11 +60,12 @@
 // |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |
 // |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  |
 //      | TO2 | SPC | SHFT |   | BSPC | RCTRL | TO1 |
+                        label = "Base";
                         bindings = <
-  &trans  &kp Q  &kp W  &kp E  &kp R  &kp T   &kp Y  &kp U  &kp I  &td MINUS O  &kp P  &trans
-  &trans  &kp A  &kp S  &kp D  &hm LGUI F  &kp G   &kp H  &hm RGUI J  &kp K  &kp L  &kp SEMI  &trans
-  &trans  &kp Z  &kp X  &kp C  &kp V  &kp B   &kp N  &kp M  &td UNDER COMMA  &td EXCL DOT  &td QMARK FSLH  &trans
-      &to 2  &kp SPACE  &kp LSHFT   &kp BSPC  &kp RCTL  &to 1
+  &trans  &kp Q  &kp W  &kp E  &kp R  &kp T   &kp Y  &kp U  &kp I  &td MINUS O  &kp P
+  &kp A  &kp S  &kp D  &hm LGUI F  &kp G   &kp H  &hm RGUI J  &kp K  &kp L  &kp SEMI
+  &trans  &kp Z  &kp X  &kp C  &kp V  &kp B   &kp N  &kp M  &td UNDER COMMA  &td EXCL DOT  &td QMARK FSLH
+                &to 2  &kp SPACE  &kp LSHFT   &kp BSPC  &kp RCTL  &to 1
                         >;
                 };
                 right_layer {
@@ -58,25 +74,27 @@
 // | TAB |  =  |  ‘  |  ’  | SQT |   |  \  |  {  |  }  | "|" | RET  |
 // |  <  |  ~  |  “  |  ”  | DQT |   |  [  |  (  |  )  |  ]  |  >   |
 //             | TO0 |     | SPC |   | BSPC| RALT| TO2 |
+                        label = "Char";
                         bindings = <
-  &trans  &kp ESC  &kp ATSN  &kp LS(N3)  &kp DLLR  &kp PRCNT   &kp CARET  &kp LS(COMMA)  &kp LS(DOT)  &kp COLON  &kp BSPC  &trans
-  &trans  &kp TAB  &kp EQUAL  &kp LA(RBKT)  &kp LA(LS(RBKT))  &kp SQT   &hm HOME BSLH  &hm PG_UP LBRC  &hm PG_DN RBRC  &hm END PIPE  &kp RET  &trans
-  &trans  &kp LT  &kp TILDE  &kp LA(LBKT)  &kp LA(LS(LBKT))  &kp DQT   &kp LBKT &kp LPRN &kp RPRN &kp RBKT  &kp GT  &trans
-        &to 0  &trans  &kp LSHIFT   &kp BSPC  &kp RALT  &to 2
+  &kp ESC  &kp ATSN  &kp LS(N3)  &kp DLLR  &kp PRCNT   &kp CARET  &kp LS(COMMA)  &kp LS(DOT)  &kp COLON  &kp BSPC
+  &kp TAB  &kp EQUAL  &kp LA(RBKT)  &kp LA(LS(RBKT))  &kp SQT   &hm HOME BSLH  &hm PG_UP LBRC  &hm PG_DN RBRC  &hm END PIPE  &kp RET
+  &kp LT  &kp TILDE  &kp LA(LBKT)  &kp LA(LS(LBKT))  &kp DQT   &kp LBKT &kp LPRN &kp RPRN &kp RBKT  &kp GT
+                &to 0  &trans  &kp LSHIFT   &kp BSPC  &kp RALT  &to 2
                         >;
                 };
 
                 left_layer {
 // -----------------------------------------------------------------------------------------
-// | ESC  |  1  |  PLAY  |  PAUSE |  _  |   |  -  |  7  |  8  |  9  |     |
-// | TAB  |     | VOL_DN | VOL_UP |  +  |   |  =  |  4  |  5  |  6  | ENT |
-// | TO4  |  &  |   /    |    *   |  .  |   |  0  |  1  |  2  |  3  |     |
-//                    | TO0 |     | LGUI|   | RALT|     | TO3 |
+// | ESC  |  1  |  PLAY  |  PAUSE |  _  |   |  -  |  7  |  8  |  9  | BSPC |
+// | TAB  |     | VOL_DN | VOL_UP |  +  |   |  =  |  4  |  5  |  6  |  ENT |
+// | TO4  |  &  |   /    |    *   |  .  |   |  0  |  1  |  2  |  3  |      |
+//                    | TO0 |     | LGUI|   | RALT|     | TO1 |
+                        label: "Num";
                         bindings = <
-   &trans  &kp ESC  &kp C_PP  &kp C_PREV  &kp C_NEXT  &kp LS(MINUS)   &kp MINUS  &kp N7 &kp N8 &kp N9 &trans  &trans
+   &trans  &kp ESC  &kp C_PP  &kp C_PREV  &kp C_NEXT  &kp LS(MINUS)   &kp MINUS  &kp N7 &kp N8 &kp N9 &trans  &BSPC
    &trans  &kp TAB  &trans  &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(EQUAL)   &kp EQUAL &kp N4  &kp N5  &kp N6  &kp RET  &trans
    &trans  &to 4  &kp AMPS  &kp SLASH  &kp STAR  &kp DOT   &kp N0 &kp N1 &kp N2 &kp N3  &trans  &trans
-        &to 0  &trans  &sk LGUI   &sk RALT  &trans  &to 3 
+                &to 0  &trans  &sk LGUI   &sk RALT  &trans  &to 1 
                         >;
                 };
 
@@ -86,20 +104,22 @@
 // |LSHFT| MOVE_LEFT |MOVE_DOWN| MOVE_RIGHT | MCLICK |   | LFT |   DWN   |   UP    | RGT | RET |
 // |  `  |   RCLICK  |SCROLL_UP| SCROLL_DOWN|        |   | LCLK|  PG_DN  |  PG_UP  |     |     |
 //                               | TO0 | SPC | LGUI  |    | RALT|  RCTL  | TO1 |
+                       label = "Nav";
                        bindings = <
-   &trans  &trans  &trans  &trans  &trans  &trans   &kp LG(LBKT)   &kp LC(LS(TAB))   &kp RC(TAB) &kp LG(RBKT) &kp BSPC  &trans
-   &trans  &kp LSHIFT  &trans  &trans  &trans  &trans   &kp LEFT &kp DOWN  &kp UP &kp RIGHT &kp RET  &trans
-   &trans  &td LG(GRAVE) GRAVE  &trans  &trans  &trans  &trans   &mkp LCLK &kp PG_DN  &kp PG_UP  &trans &trans  &trans
-        &to 0 &kp SPACE &kp LGUI   &kp RALT &kp RCTRL  &to 1 
+   &trans  &trans  &trans  &trans  &trans   &kp LG(LBKT)   &kp LC(LS(TAB))   &kp RC(TAB) &kp LG(RBKT) &kp BSPC
+   &kp LSHIFT  &trans  &trans  &trans  &trans   &kp LEFT &kp DOWN  &kp UP &kp RIGHT &kp RET
+   &td LG(GRAVE) GRAVE  &trans  &trans  &trans  &trans   &mkp LCLK &kp PG_DN  &kp PG_UP  &trans &trans
+                &to 0 &kp SPACE &kp LGUI   &kp RALT &kp RCTRL  &to 1 
 		        >;                        
                 };
 
                 bt {
-		bindings = <
-  &trans  &trans  &trans &trans &trans &trans  &trans &trans &trans &trans &trans  &trans
-  &trans  &trans  &trans &trans &trans &trans &trans &trans &trans &trans &trans  &trans
-  &trans  &bt BT_PRV  &bt BT_NXT &bt BT_CLR &trans &trans   &trans &trans  &trans  &trans &trans  &trans
-        &to 0  &trans  &trans   &trans  &trans  &to 1 
+                      label = "BT";
+		      bindings = <
+  &trans  &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans
+  &bt BT_PRV  &bt BT_NXT &bt BT_CLR &trans &trans   &trans &trans  &trans  &trans  &trans  &trans
+                &to 0  &trans  &trans   &trans  &trans  &to 1 
 		        >;
                 };		
         };
