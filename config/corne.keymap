@@ -48,7 +48,7 @@
                         bindings = <
   &trans  &kp Q  &kp W  &kp E  &kp R  &kp T   &kp Y  &kp U  &kp I  &td MINUS O  &kp P  &trans
   &trans  &kp A  &kp S  &kp D  &hm LGUI F  &kp G   &kp H  &hm RGUI J  &kp K  &kp L  &kp SEMI  &trans
-  &trans  &kp Z  &kp X  &kp C  &kp V  &kp B   &kp N  &kp M  &td UNDER COMMA  &td EXCL DOT  &kp FSLH  &trans
+  &trans  &kp Z  &kp X  &kp C  &kp V  &kp B   &kp N  &kp M  &td UNDER COMMA  &td EXCL DOT  &td QMARK FSLH  &trans
       &to 2  &kp SPACE  &kp LSHFT   &kp BSPC  &kp RCTL  &to 1
                         >;
                 };
