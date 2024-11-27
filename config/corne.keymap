@@ -80,17 +80,17 @@
                         >;
                 };
 
-                mouse_layer {
+                control_layer {
 // ------------------------------`-----------------------------------------------------------
 // |     |SCROLL_LEFT| MOVE_UP |SCROLL_RIGHT|        |   | BACK| PREVTAB | NEXTTAB | FWRD| BSPC|
 // |LSHFT| MOVE_LEFT |MOVE_DOWN| MOVE_RIGHT | MCLICK |   | LFT |   DWN   |   UP    | RGT | RET |
 // |  `  |   RCLICK  |SCROLL_UP| SCROLL_DOWN|        |   | LCLK|  PG_DN  |  PG_UP  |     |     |
-//                               | TO0 | SPC | RCTRL |   | RGUI| RALT | TO1 |
+//                               | TO0 | SPC | LGUI  |    | RALT|  RCTL  | TO1 |
                        bindings = <
    &trans  &trans  &trans  &trans  &trans  &trans   &kp LG(LBKT)   &kp LC(LS(TAB))   &kp RC(TAB) &kp LG(RBKT) &kp BSPC  &trans
    &trans  &kp LSHIFT  &trans  &trans  &trans  &trans   &kp LEFT &kp DOWN  &kp UP &kp RIGHT &kp RET  &trans
    &trans  &td LG(GRAVE) GRAVE  &trans  &trans  &trans  &trans   &mkp LCLK &kp PG_DN  &kp PG_UP  &trans &trans  &trans
-        &to 0 &kp SPACE &kp RCTRL   &kp RGUI &kp RALT  &to 1 
+        &to 0 &kp SPACE &kp LGUI   &kp RALT &kp RCTRL  &to 1 
 		        >;                        
                 };
 
