@@ -1,18 +1,56 @@
-/*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
-
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/outputs.h>
 
-&mt {
-    flavor = "tap-preferred";
-    tapping_term_ms = <200>;
-};
+// layers
+#define DEF     0
+#define NUM     1
+#define NAV     2
+#define MEDIA   3
+#define FUN     4
+
+#include "keys/36.h"
+#include "includes/macros.dtsi"
+#include "includes/combos.dtsi"
+#include "includes/behaviors.dtsi"
+
+// ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
+//                     │SEC THMB │PRM THMB │TER THMB │   │TER THMB │PRM THMB │SEC THMB │
+//                     │   MED   │  NUM    │ LSHIFT  │   │  NAV    │CTRL+DEL │  FUN    │
+//                     │ Sk SHFT │ REPEAT  │  Tab    │   │  SPACE  │  DEL    │ SK CTRL │
+//                     ╰─────────────────────────────╯   ╰─────────────────────────────╯
+//                          ╰caps_word on double tap, not sure if I like it yet
+
+// Layer switching
+#define SECLTHMB  &ltsk  MEDIA    LSHIFT  // tap for sticky shift : hold for media layer
+#define PRMLTHMB  &ltr   NUM      0      //  zero here because key-repeat does not take arguments
+#define TERLTHMB  &mt    SPACE   LSHIFT  //   tap for tab : hold for shift
+
+#define TERRTHMB  &lt    NAV      TAB
+#define PRMRTHMB  &mt    RC(BSPC) BSPC   // tap gives you backspace : long tap gives you delete word
+#define SECRTHMB  &ltsk  FUN      RCTRL //  tap for sticky ctrl : hold for function layer
+
+// shorter codes
+#define BPSTE    &kp  K_PASTE
+#define BCPY     &kp  K_COPY
+#define BCUT     &kp  K_CUT
+#define BUNDO    &kp  K_UNDO
+#define BREDO    &kp  K_REDO
+#define BPREV    &kp  K_PREV
+#define BNEXT    &kp  K_NEXT
+#define BPLYPSE  &kp  K_PP
+#define BMUTE    &kp  K_MUTE
+#define BSTOP    &kp  K_STOP2
+#define BVOLD    &kp  K_VOL_DN
+#define BVOLU    &kp  K_VOL_UP
+#define OUTTOG   &out OUT_TOG // toggle keyboard output bluetooth/usb
+#define ___      &trans      //  transparent
+#define _x_      &none
+
+// Home row mods
+#define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  k4
+#define HRMR(k1, k2, k3, k4) &hmr RGUI  k1 &hmr RALT  k2 &hmr RCTRL k3 &hmr RSHFT k4
 
 / {
   chosen {
@@ -21,106 +59,100 @@
 };
 
 / {
-        behaviors {
-        hm: homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick_tap_ms = <0>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
-        };
-	td: tapdance {
-            compatible = "zmk,behavior-hold-tap";
-            label = "TAPDANCE";
-            #binding-cells = <2>;
-            tapping-term-ms = <150>;
-            quick_tap_ms = <0>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
-        };
+  keymap {
+    compatible = "zmk,keymap";
+    default_layer { // layer 0 (default)
+      label = "Base";
+      bindings = <
+// ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
+// │    Q    │    W    │    E    │    R    │    T    │   │    Y    │    U    │    I    │    O    │    P    │
+    &kp Q     &kp W     &kp E     &kp R     &kp T         &kp Y     &kp U     &kp I     &kp O     &kp P
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │    A    │    S    │    D    │    F    │    G    │   │    H    │    J    │    K    │    L    │    '    │
+    HRML(A,       S,        D,        F)    &kp G         &kp H     HRMR(J,       K,        L,       SQT)
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │    Z    │    X    │    C    │    V    │    B    │   │    N    │    M    │   ,/;   │   ./:   │    /    │
+    &kp Z     &kp X     &kp C     &kp V     &kp B         &kp N     &kp M     &cma_smi  &dot_cln  &kp FSLH
+// ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
+                        SECLTHMB  PRMLTHMB  TERLTHMB      TERRTHMB  PRMRTHMB  SECRTHMB
+//                     ╰─────────────────────────────╯   ╰─────────────────────────────╯
+      >;
+    };
+    number_layer { // layer 1 (numbers)
+      label = "Num";
+      bindings = <
+// ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
+// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │
+    _x_       _x_       _x_       _x_       _x_           _x_       _x_       _x_       _x_       _x_
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │    1    │    2    │    3    │    4    │    5    │   │     6   │    7    │    8    │    9    │    0    │
+    HRML(N1,     N2,       N3,       N4)    &kp N5        &kp N6    HRMR(N7,     N8,       N9,       N0)
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │   NOP   │   NOP   │   NOP   │   ./:   │   NOP   │
+       _x_       _x_       _x_       _x_       _x_           _x_       _x_       _x_    &dot_cln     _x_
+// ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
+//                     │   NOP   │   NOP   │   NOP   │   │  SPACE  │   NOP   │  ENTER  │
+                        _x_       ___       _x_           &kp SPACE &kp BSPC  &kp RET
+//                     ╰─────────────────────────────╯   ╰─────────────────────────────╯
+      >;
     };
 
-        combos {
-                compatible = "zmk,combos";
-                combo_layer {
-                        timeout-ms = <50>;
-                        key-positions = <30 34>;
-                        bindings = <&to 3>;
-                };
-        };
+    navigation_layer { // layer 2 (navigation)
+      label = "Nav";
+      bindings = <
+// ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
+// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │   REDO  │   CUT   │  COPY   │  PASTE  │  UNDO   │
+    _x_       _x_       _x_       _x_       _x_           BREDO     BCUT      BCPY        BPSTE     BUNDO
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │ SHIFT   │  CTRL   │   ALT   │   SUPER │   NOP   │   │  LEFT   │  DOWN   │    UP   │  RIGHT  │   NOP   │
+    &kp LSHFT &kp LCTRL  &kp LALT &kp LGUI  _x_           &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT _x_
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │  HOME   │  PGDN   │   PGUP  │   END   │  INSERT │
+    _x_       _x_       _x_       _x_       _x_           &kp HOME  &kp PG_DN &kp PG_UP  &kp END  &kp INS
+// ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
+//                     │  ENTER  │  BCKSPC │  SPACE  │   │   NOP   │   NOP   │   NOP   │
+                        &kp RET   &kp BSPC  &kp SPACE     ___       _x_       _x_
+//                     ╰─────────────────────────────╯   ╰─────────────────────────────╯
+      >;
+    };
+    media_layer { // layer 5 (media)
+      label = "Media";
+      bindings = <
+// ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
+// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │
+    _x_       _x_       _x_       _x_       _x_           _x_       _x_       _x_       _x_       _x_
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │ SHIFT   │  CTRL   │   ALT   │   SUPER │   NOP   │   │   NOP   │PREV_TRCK│ VOl_DOWN│  VOL_UP │NEXT_TRCK│
+    &kp LSHFT &kp LCTRL  &kp LALT &kp LGUI  _x_           OUTTOG    BPREV     BVOLD     BVOLU     BNEXT
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │BTPROF 0 │BTPROF 1 │BTPROF 2 │BTPROF 3 │BTROF 4  │// shift to clear profile
+    _x_       _x_       _x_       &bt BT_CLR _x_          &btsc_0   &btsc_1   &btsc_2   &btsc_3   &btsc_4
+// ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
+//                     │   NOP   │   NOP   │   NOP   │   │  STOP   │Pause/Ply│  MUTE   │
+                        ___       _x_       _x_           BSTOP     BPLYPSE   BMUTE
+//                     ╰─────────────────────────────╯   ╰─────────────────────────────╯
+      >;
+    };
+    function_layer { // layer 6 (function)
+      label = "Fn";
+      bindings = <
+// ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
+// │   F12   │   F7    │   F8    │   F9    │   NOP   │   │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │
+    &kp F12   &kp F7    &kp F8    &kp F9    _x_           _x_       _x_       _x_       _x_       _x_
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │   F11   │   F4    │   F5    │   F6    │   NOP   │   │   NOP   │  SUPER  │   ALT   │  CTRL   │  SHIFT  │
+    &kp F11   &kp F4    &kp F5    &kp F6    _x_           _x_       &kp RGUI  &kp RALT  &kp RCTRL &kp RSHFT
+// ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
+// │   F10   │   F1    │   F2    │   F3    │   NOP   │   │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │
+    &kp F10   &kp F1    &kp F2    &kp F3    _x_           _x_       _x_       _x_       _x_       _x_
+// ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
+//                     │   APP   │  SPACE  │   TAB   │   │   NOP   │   NOP   │   NOP   │
+                        &kp K_APP &kp SPACE &kp TAB       _x_       _x_       ___
+//                     ╰─────────────────────────────╯   ╰─────────────────────────────╯
+      >;
+    };
 
-        keymap {
-                compatible = "zmk,keymap";
-
-                default_layer {
-// -----------------------------------------------------------------------------------------
-// |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  |
-// |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |
-// |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  |
-//      | TO2 | SPC | SHFT |   | BSPC | RCTRL | TO1 |
-                        label = "Base";
-                        bindings = <
-  &trans  &kp Q  &kp W  &kp E  &kp R  &kp T   &kp Y  &kp U  &kp I  &td MINUS O  &kp P
-  &kp A  &kp S  &kp D  &hm LGUI F  &kp G   &kp H  &hm RGUI J  &kp K  &kp L  &kp SEMI
-  &trans  &kp Z  &kp X  &kp C  &kp V  &kp B   &kp N  &kp M  &td UNDER COMMA  &td EXCL DOT  &td QMARK FSLH
-                &to 2  &kp SPACE  &kp LSHFT   &kp BSPC  &kp RCTL  &to 1
-                        >;
-                };
-                right_layer {
-// -----------------------------------------------------------------------------------------
-// | ESC |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  :  | BSPC |
-// | TAB |  =  |  ‘  |  ’  | SQT |   |  \  |  {  |  }  | "|" | RET  |
-// |  <  |  ~  |  “  |  ”  | DQT |   |  [  |  (  |  )  |  ]  |  >   |
-//             | TO0 |     | SPC |   | BSPC| RALT| TO2 |
-                        label = "Char";
-                        bindings = <
-  &kp ESC  &kp ATSN  &kp LS(N3)  &kp DLLR  &kp PRCNT   &kp CARET  &kp LS(COMMA)  &kp LS(DOT)  &kp COLON  &kp BSPC
-  &kp TAB  &kp EQUAL  &kp LA(RBKT)  &kp LA(LS(RBKT))  &kp SQT   &hm HOME BSLH  &hm PG_UP LBRC  &hm PG_DN RBRC  &hm END PIPE  &kp RET
-  &kp LT  &kp TILDE  &kp LA(LBKT)  &kp LA(LS(LBKT))  &kp DQT   &kp LBKT &kp LPRN &kp RPRN &kp RBKT  &kp GT
-                &to 0  &trans  &kp LSHIFT   &kp BSPC  &kp RALT  &to 2
-                        >;
-                };
-
-                left_layer {
-// -----------------------------------------------------------------------------------------
-// | ESC  |  1  |  PLAY  |  PAUSE |  _  |   |  -  |  7  |  8  |  9  | BSPC |
-// | TAB  |     | VOL_DN | VOL_UP |  +  |   |  =  |  4  |  5  |  6  |  ENT |
-// | TO4  |  &  |   /    |    *   |  .  |   |  0  |  1  |  2  |  3  |      |
-//                    | TO0 |     | LGUI|   | RALT|     | TO1 |
-                        label = "Num";
-                        bindings = <
-   &trans  &kp ESC  &kp C_PP  &kp C_PREV  &kp C_NEXT  &kp LS(MINUS)   &kp MINUS  &kp N7 &kp N8 &kp N9 &kp BSPC
-   &trans  &kp TAB  &trans  &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(EQUAL)   &kp EQUAL &kp N4  &kp N5  &kp N6  &kp RET
-   &trans  &to 4  &kp AMPS  &kp SLASH  &kp STAR  &kp DOT   &kp N0  &kp N1  &kp N2  &kp N3   &trans
-                &to 0  &trans  &sk LGUI   &sk RALT  &trans  &to 1 
-                        >;
-                };
-
-                control_layer {
-// ------------------------------`-----------------------------------------------------------
-// |     |SCROLL_LEFT| MOVE_UP |SCROLL_RIGHT|        |   | BACK| PREVTAB | NEXTTAB | FWRD| BSPC|
-// |LSHFT| MOVE_LEFT |MOVE_DOWN| MOVE_RIGHT | MCLICK |   | LFT |   DWN   |   UP    | RGT | RET |
-// |  `  |   RCLICK  |SCROLL_UP| SCROLL_DOWN|        |   | LCLK|  PG_DN  |  PG_UP  |     |     |
-//                               | TO0 | SPC | LGUI  |    | RALT|  RCTL  | TO1 |
-                       label = "Nav";
-                       bindings = <
-   &trans  &trans  &trans  &trans  &trans   &kp LG(LBKT)   &kp LC(LS(TAB))   &kp RC(TAB) &kp LG(RBKT) &kp BSPC
-   &kp LSHIFT  &trans  &trans  &trans  &trans   &kp LEFT &kp DOWN  &kp UP &kp RIGHT &kp RET
-   &td LG(GRAVE) GRAVE  &trans  &trans  &trans  &trans   &mkp LCLK &kp PG_DN  &kp PG_UP  &trans &trans
-                &to 0 &kp SPACE &kp LGUI   &kp RALT &kp RCTRL  &to 1 
-		        >;                        
-                };
-
-                bt {
-                      label = "BT";
-		      bindings = <
-  &trans  &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans
-  &trans  &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans
-  &bt BT_PRV  &bt BT_NXT &bt BT_CLR &trans &trans   &trans &trans  &trans  &trans  &trans  &trans
-                &to 0  &trans  &trans   &trans  &trans  &to 1 
-		        >;
-                };		
-        };
+  };
 };
+
+// vim:ft=cpp
