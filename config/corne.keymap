@@ -52,6 +52,11 @@
 #define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  k4
 #define HRMR(k1, k2, k3, k4) &hmr RGUI  k1 &hmr RALT  k2 &hmr RCTRL k3 &hmr RSHFT k4
 
+&mt {
+    flavor = "tap-preferred";
+    tapping_term_ms = <200>;
+};
+
 / {
   chosen {
     zmk,matrix_transform = &five_column_transform;
