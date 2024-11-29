@@ -47,12 +47,15 @@
 #define OUTTOG   &out OUT_TOG // toggle keyboard output bluetooth/usb
 #define ___      &trans      //  transparent
 #define _x_      &none
-#define NEXTAB   &kp  LC(PG_DN)
-#define PREVTAB  &kp  LC(PG_UP)
 #define SPACE1   &kp  LA(N1)
 #define SPACE2   &kp  LA(N2)
 #define SPACE3   &kp  LA(N3)
 #define SPACE4   &kp  LA(N4)
+
+// Firefox
+#define NEXTAB   &kp  LC(PG_DN)
+#define PREVTAB  &kp  LC(PG_UP)
+#defind CLOSTAB  &kp  LG(W)
 
 // Home row mods
 #define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  k4
@@ -112,8 +115,8 @@
       label = "Nav";
       bindings = <
 // ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
-// │   NOP   │   NOP   │ PREVTAB │ NEXTTAB │   NOP   │   │   REDO  │   CUT   │  COPY   │  PASTE  │  UNDO   │
-    _x_       _x_       PREVTAB   NEXTAB    _x_           BREDO     BCUT      BCPY        BPSTE     BUNDO
+// │   NOP   │   NOP   │ PREVTAB │ NEXTTAB │ CLOSETAB│   │   REDO  │   CUT   │  COPY   │  PASTE  │  UNDO   │
+    _x_       _x_       PREVTAB   NEXTAB    CLOSTAB       BREDO     BCUT      BCPY        BPSTE     BUNDO
 // ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
 // │ SHIFT   │  CTRL   │   ALT   │   SUPER │   NOP   │   │  LEFT   │  DOWN   │    UP   │  RIGHT  │   NOP   │
     &kp LSHFT &kp LCTRL  &kp LALT &kp LGUI  &kp CAPS      &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT _x_
