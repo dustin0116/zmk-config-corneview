@@ -28,7 +28,7 @@
 #define TERLTHMB  &mt    LSHIFT   SPACE  //   tap for tab : hold for shift
 
 #define TERRTHMB  &lt    NAV      TAB
-#define PRMRTHMB  &mt    RC(BSPC) BSPC   // tap gives you backspace : long tap gives you delete word
+#define PRMRTHMB  &mt    DEL      BSPC   // tap gives you backspace : long tap gives you delete word
 #define SECRTHMB  &ltsk  FUN      RCTRL //  tap for sticky ctrl : hold for function layer
 
 // shorter codes
@@ -47,6 +47,12 @@
 #define OUTTOG   &out OUT_TOG // toggle keyboard output bluetooth/usb
 #define ___      &trans      //  transparent
 #define _x_      &none
+#define NEXTAB   &kp  LC(PG_DN)
+#define PREVTAB  &kp  LC(PG_UP)
+#define SPACE1   &kp  LA(N1)
+#define SPACE2   &kp  LA(N2)
+#define SPACE3   &kp  LA(N3)
+#define SPACE4   &kp  LA(N4)
 
 // Home row mods
 #define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  k4
@@ -106,14 +112,14 @@
       label = "Nav";
       bindings = <
 // ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
-// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │   REDO  │   CUT   │  COPY   │  PASTE  │  UNDO   │
-    _x_       _x_       _x_       _x_       _x_           BREDO     BCUT      BCPY        BPSTE     BUNDO
+// │   NOP   │   NOP   │ PREVTAB │ NEXTTAB │   NOP   │   │   REDO  │   CUT   │  COPY   │  PASTE  │  UNDO   │
+    _x_       _x_       PREVTAB   NEXTAB    _x_           BREDO     BCUT      BCPY        BPSTE     BUNDO
 // ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
 // │ SHIFT   │  CTRL   │   ALT   │   SUPER │   NOP   │   │  LEFT   │  DOWN   │    UP   │  RIGHT  │   NOP   │
     &kp LSHFT &kp LCTRL  &kp LALT &kp LGUI  &kp CAPS      &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT _x_
 // ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
-// │   NOP   │   NOP   │   NOP   │   NOP   │   NOP   │   │  HOME   │  PGDN   │   PGUP  │   END   │  INSERT │
-    _x_       _x_       _x_       _x_       _x_           &kp HOME  &kp PG_DN &kp PG_UP  &kp END  &kp INS
+// │ SPACE1  │ SPACE2  │ SPACE3  │ SPACE4  │   NOP   │   │  HOME   │  PGDN   │   PGUP  │   END   │  INSERT │
+    SPACE1    SPACE2    SPACE3    SPACE4    _x_           &kp HOME  &kp PG_DN &kp PG_UP  &kp END  &kp INS
 // ╰─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────╯
 //                     │  ENTER  │  BCKSPC │  SPACE  │   │   NOP   │   NOP   │   NOP   │
                         &kp RET   &kp BSPC  &kp SPACE     ___       _x_       _x_
