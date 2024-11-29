@@ -158,7 +158,7 @@ ZMK_COMBO(dllr, &kp DLLR, RM0 RT0, DEF)
 ZMK_COMBO(excl, &kp EXCL, RM0 RB0, DEF)
 ZMK_COMBO(star, &kp STAR, RM1 RT1, DEF)
 
-/*
+/* 
   ╭─────────────────────────┬─────────────────────────╮
   │ LT4 LT3 LT2 LT1 LT0     │     RT0 RT1 RT2 RT3 RT4 │
   │ LM4 LM3 LM2   ⤥ LM0     │     RM0 ⤦   RM2 RM3 RM4 │
@@ -180,3 +180,13 @@ ZMK_COMBO(ampr,  &kp AMPS, RB0 RM1, DEF)
 // outputs -> or => on shift press
 // common for clojure threading and a pain to build with above combos
 ZMK_COMBO(thread_arrow, &thread_arrow, RT1 RT2 RT3, DEF)
+
+/*
+  ╭─────────────────────────┬─────────────────────────╮
+  │ LT4 LT3 LT2 LT1 LT0     │     RT0 RT1 RT2 RT3 RT4 │
+  │ LM4 LM3 LM2 LM1 LM0     │     RM0 RM1 RM2 -<DEL>- │
+  │ LB4 LB3 LB2 LB1 LB0     │     RB0 RB1 RB2 RM3 RB4 │
+  ╰───────────╮ LH2 LH1 LH0 │ RH0 RH1 RH2 ╭───────────╯
+              ╰─────────────┴─────────────╯
+*/
+ZMK_COMBO(del, &kp DEL, RM3 RM4, DEF)

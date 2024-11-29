@@ -28,7 +28,7 @@
 #define TERLTHMB  &mt    LSHIFT   SPACE  //   tap for tab : hold for shift
 
 #define TERRTHMB  &lt    NAV      TAB
-#define PRMRTHMB  &mt    DEL      BSPC   // tap gives you backspace : long tap gives you delete word
+#define PRMRTHMB  &kp    BSPC   // tap gives you backspace : long tap gives you delete word
 #define SECRTHMB  &ltsk  FUN      RCTRL //  tap for sticky ctrl : hold for function layer
 
 // shorter codes
