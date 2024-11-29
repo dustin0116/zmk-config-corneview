@@ -55,7 +55,7 @@
 // Firefox
 #define NEXTAB   &kp  LC(PG_DN)
 #define PREVTAB  &kp  LC(PG_UP)
-#defind CLOSTAB  &kp  LG(W)
+#define CLOSTAB  &kp  LG(W)
 
 // Home row mods
 #define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  k4
