@@ -52,10 +52,10 @@
 #define SPACE3   &kp  LA(N3)
 #define SPACE4   &kp  LA(N4)
 
-// Firefox
-#define NEXTAB   &kp  LC(PG_DN)
-#define PREVTAB  &kp  LC(PG_UP)
-#define CLOSTAB  &kp  LG(W)
+// Arc Browser 
+#define NEXTAB   &kp  LA(LG(DOWN))
+#define PREVTAB  &kp  LA(LG(UP))
+#define CLOSETAB &kp  LG(W)
 
 // Home row mods
 #define HRML(k1, k2, k3, k4) &hml LSHFT k1 &hml LCTRL k2 &hml LALT  k3 &hml LGUI  k4
@@ -116,7 +116,7 @@
       bindings = <
 // ╭─────────────────────────────────────────────────╮   ╭─────────────────────────────────────────────────╮
 // │   NOP   │   NOP   │ PREVTAB │ NEXTTAB │ CLOSETAB│   │   REDO  │   CUT   │  COPY   │  PASTE  │  UNDO   │
-    _x_       _x_       PREVTAB   NEXTAB    CLOSTAB       BREDO     BCUT      BCPY        BPSTE     BUNDO
+    _x_       _x_       PREVTAB   NEXTAB    CLOSETAB      BREDO     BCUT      BCPY        BPSTE     BUNDO
 // ├─────────┼─────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┤
 // │ SHIFT   │  CTRL   │   ALT   │   SUPER │   NOP   │   │  LEFT   │  DOWN   │    UP   │  RIGHT  │   NOP   │
     &kp LSHFT &kp LCTRL  &kp LALT &kp LGUI  &kp CAPS      &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT _x_
